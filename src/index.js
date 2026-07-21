@@ -23,9 +23,10 @@ export function createQueue(options = {}) {
   let running = 0;
   let nextId = 1;
   let idleResolvers = [];
+  let isPaused = false;
 
   const runNext = () => {
-    if (running >= concurrency || pending.length === 0) {
+    if (isPaused || running >= concurrency || pending.length === 0) {
       if (running === 0 && pending.length === 0) {
         idleResolvers.forEach((resolve) => resolve());
         idleResolvers = [];
@@ -72,6 +73,23 @@ export function createQueue(options = {}) {
     onIdle() {
       if (running === 0 && pending.length === 0) return Promise.resolve();
       return new Promise((resolve) => idleResolvers.push(resolve));
+    },
+
+    /** Stop starting new jobs; running jobs finish normally. */
+    pause() {
+      isPaused = true;
+    },
+
+    /** Resume starting jobs after a pause. */
+    resume() {
+      if (!isPaused) return;
+      isPaused = false;
+      queueMicrotask(runNext);
+    },
+
+    /** Whether the queue is currently paused. */
+    isPaused() {
+      return isPaused;
     },
   };
 }
