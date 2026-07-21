@@ -29,6 +29,7 @@ await queue.onIdle(); // resolves when everything is done
 
 - `createQueue(options?)` — `concurrency` (default `1`), `retries` (default `0`), `onError(err, jobId)` called when a job exhausts its retries.
 - `queue.add(fn)` — enqueue an async job; returns a numeric job id.
+- `queue.addAll(fns)` — enqueue several jobs at once; returns their ids in input order.
 - `queue.size()` — jobs waiting to run.
 - `queue.running()` — jobs currently in flight.
 - `queue.onIdle()` — promise that resolves when the queue is drained.

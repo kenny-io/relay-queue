@@ -64,6 +64,15 @@ export function createQueue(options = {}) {
       return id;
     },
 
+    /**
+     * Enqueue several jobs at once.
+     * @param {Array<() => Promise<any>>} fns
+     * @returns {Array<number>} job ids in input order
+     */
+    addAll(fns) {
+      return fns.map((fn) => this.add(fn));
+    },
+
     /** Number of jobs waiting (not counting running jobs). */
     size() {
       return pending.length;
