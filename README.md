@@ -31,6 +31,8 @@ await queue.onIdle(); // resolves when everything is done
 - `queue.add(fn)` — enqueue an async job; returns a numeric job id.
 - `queue.size()` — jobs waiting to run.
 - `queue.onIdle()` — promise that resolves when the queue is drained.
+- `queue.pause()` / `queue.resume()` — stop and restart job starts; running jobs always finish.
+- `queue.isPaused()` — whether the queue is currently paused.
 
 ## License
 
