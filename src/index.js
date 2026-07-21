@@ -69,6 +69,11 @@ export function createQueue(options = {}) {
       return pending.length;
     },
 
+    /** Number of jobs currently running. */
+    running() {
+      return running;
+    },
+
     /** Resolves when the queue is fully drained. */
     onIdle() {
       if (running === 0 && pending.length === 0) return Promise.resolve();
