@@ -87,6 +87,17 @@ export function createQueue(options = {}) {
       queueMicrotask(runNext);
     },
 
+    /**
+     * Drop all waiting jobs without running them. Running jobs finish.
+     * @returns {number} how many jobs were dropped
+     */
+    clear() {
+      const dropped = pending.length;
+      pending.length = 0;
+      queueMicrotask(runNext);
+      return dropped;
+    },
+
     /** Whether the queue is currently paused. */
     isPaused() {
       return isPaused;
