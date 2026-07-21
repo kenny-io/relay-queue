@@ -33,6 +33,7 @@ await queue.onIdle(); // resolves when everything is done
 - `queue.onIdle()` — promise that resolves when the queue is drained.
 - `queue.pause()` / `queue.resume()` — stop and restart job starts; running jobs always finish.
 - `queue.isPaused()` — whether the queue is currently paused.
+- `queue.clear()` — drop all waiting jobs without running them; returns the number dropped.
 
 ## License
 
